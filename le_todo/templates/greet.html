@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<style>
+{  box-sizing: border-box;}
+/* Remove margins and padding from the list */
+ul {
+  margin: 20;
+  padding: 0;
+}
+body {
+  background-image: linear-gradient(to right, orange , lemonchiffon);
+}
+/* Style the list items */
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  background: #fff;
+  font-size: 18px;
+  transition: 0.2s;
+
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+  background: #ddd;
+}
+
+/* Style the close button */
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Clear floats after the header */
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
+<head>
+    <h1 style='padding: 30px 40px; color:white; text-align: center; font-size:46px;'>TO DO</h1>
+</head>
+<body>
+<div class="row">
+  <div class="col-xs-1 center-block" style="text-align:center;">
+    <span>
+
+        <form action="/addTodo/" method="post">{% csrf_token %}
+    <input style="padding: 12px 8px 12px 20px; background:#fff; font-size: 18px;" type="text" name="content"/>
+    <button type="submit" style="background:#32CD32; color:white;">+</button>
+</form>
+
+<ul style="list-style:none;">
+    {% for todo_item in all_items %}
+    <li>{{ todo_item.content}}
+
+        <form action="/deleteTodo/{{todo_item.id}}/"
+          style="display:inline; font-size:20;""
+          method="post">{% csrf_token %}
+        <button type="submit" style="background:#FFA500;color:white;">x</button>
+</form>
+    </li>
+    {% endfor %}
+</ul>
+
+</span>
+  </div>
+</div>
+</body>
+</html>
